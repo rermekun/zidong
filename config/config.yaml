@@ -41,7 +41,7 @@ app:
 # ===============================================================
 schedule:
   enabled: false                        # 是否启用调度系统（true=启用, false=关闭，默认关闭）
-  preset: "morning_evening"             # 预设模板名称（见上方说明）
+  preset: "custom"             # 预设模板名称（见上方说明）
 
 
 # ===============================================================
@@ -226,27 +226,20 @@ display:
   # 调整顺序：剪切粘贴整行即可
   # 要显示某个区域，需同时：1. 在此列表中  2. 下方 regions 对应开关为 true
   region_order:
-    - new_items                           # 1️⃣ 新增热点区域
-    - hotlist                             # 2️⃣ 热榜区域（关键词匹配 / AI 智能筛选）
-    - rss                                 # 3️⃣ RSS 订阅区域
-    - standalone                          # 4️⃣ 独立展示区
-    - ai_analysis                         # 5️⃣ AI 分析区域
-
-  # 推送区域开关（需配合上方 region_order 使用）
+    - new_items                       # 1️⃣ 新增热点区域
+    - hotlist                       # 2️⃣ 热榜区域（关键词匹配 / AI 智能筛选）
+    - rss                       # 3️⃣ RSS 订阅区域
+    - standalone                       # 4️⃣ 独立展示区
+    - ai_analysis                       # 5️⃣ AI 分析区域
   regions:
-    hotlist: true                     # 热榜区域：关键词匹配 / AI 智能筛选（true=显示, false=隐藏）
-    new_items: false                  # 新增热点区域：含热榜新增 + RSS 新增（true=显示, false=隐藏）
-                                      # 注：热点词汇统计中的新增标记🆕不受此配置影响
-
-    rss: true                         # RSS 订阅区域（true=显示并分析, false=隐藏并跳过分析）
-    standalone: false                 # 独立展示区：完整热榜/RSS，不受关键词过滤（true=显示, false=隐藏）
-    ai_analysis: true                 # AI 分析区域（true=显示, false=隐藏）
-
-  # 独立展示区：将指定平台/RSS 完整展示，不受关键词过滤
-  # 推送展示由 regions.standalone 控制，AI 分析由 ai_analysis.include_standalone 控制
+    new_items: true # 新增热点区域：含热榜新增 + RSS 新增（true=显示, false=隐藏）
+    hotlist: true # 热榜区域：关键词匹配 / AI 智能筛选（true=显示, false=隐藏）
+    rss: true # RSS 订阅区域（true=显示并分析, false=隐藏并跳过分析）
+    standalone: true # 独立展示区：完整热榜/RSS，不受关键词过滤（true=显示, false=隐藏）
+    ai_analysis: true # AI 分析区域（true=显示, false=隐藏）
   standalone:
-    platforms: ["zhihu", "wallstreetcn-hot"]     # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
-    rss_feeds: []                                # RSS 源 ID 列表（如 ["hacker-news"]）
+    platforms: ["zhihu","wallstreetcn-hot","cls-hot"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
+    rss_feeds: ["yahoo-finance","ruanyifeng","hacker-news"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 20                                # 每个源最多展示条数（0=不限制）
 
 
@@ -365,9 +358,9 @@ ai:
 
   model: "deepseek/deepseek-v4-flash"
 
-  api_key: ""                       # API Key（建议使用环境变量 AI_API_KEY）
+  api_key: "sk-51164ad9cc2f45ad9efc85215b796c82"                       # API Key（建议使用环境变量 AI_API_KEY）
   
-  api_base: ""                      # 自定义 API 地址（可选，绝大多数情况留空即可）
+  api_base: "https://api.deepseek.com"                      # 自定义 API 地址（可选，绝大多数情况留空即可）
                                     #
                                     # ❓ 什么时候需要填？
                                     #    当你使用的 AI 服务商不在上方支持列表中时。
