@@ -41,7 +41,7 @@ app:
 # ===============================================================
 schedule:
   enabled: false                        # 是否启用调度系统（true=启用, false=关闭，默认关闭）
-  preset: "custom"             # 预设模板名称（见上方说明）
+  preset: "always_on"             # 预设模板名称（见上方说明）
 
 
 # ===============================================================
@@ -66,39 +66,14 @@ platforms:
   api_url: ""                            # 热榜数据 API 地址（留空使用默认地址）
                                         # 如果你自行部署了 newsnow，填入你的地址，如: https://your-domain.com/api/s
   sources:
-    - id: "toutiao"
-      name: "今日头条"
-      expected_domain: "toutiao.com"
-    - id: "baidu"
-      name: "百度热搜"
-      expected_domain: "baidu.com"
     - id: "wallstreetcn-hot"
       name: "华尔街见闻"
-      expected_domain: "wallstreetcn.com"
     - id: "thepaper"
       name: "澎湃新闻"
-      expected_domain: "thepaper.cn"
-    - id: "bilibili-hot-search"
-      name: "bilibili 热搜"
-      expected_domain: "bilibili.com"
     - id: "cls-hot"
       name: "财联社热门"
-      expected_domain: "cls.cn"
-    - id: "ifeng"
-      name: "凤凰网"
-      expected_domain: "ifeng.com"
-    - id: "tieba"
-      name: "贴吧"
-      expected_domain: "baidu.com"
     - id: "weibo"
       name: "微博"
-      expected_domain: "weibo.com"
-    - id: "douyin"
-      name: "抖音"
-      expected_domain: "douyin.com"
-    - id: "zhihu"
-      name: "知乎"
-      expected_domain: "zhihu.com"
 
 
 
@@ -131,15 +106,10 @@ rss:
       name: "Hacker News"
       url: "https://hnrss.org/frontpage"
 
-    - id: "ruanyifeng"
-      name: "阮一峰的网络日志"
-      url: "http://www.ruanyifeng.com/blog/atom.xml"
-      enabled: false                  # 禁用
-      # max_age_days: 3               # 示例：推送 3 天内的文章（更新较慢的博客）
-     
     - id: "yahoo-finance"
       name: "雅虎财经"
       url: "https://finance.yahoo.com/news/rssindex"
+
 
     # 自定义源示例
     # - id: "custom-feed"
@@ -175,7 +145,7 @@ report:
 # 4.5 筛选策略
 # ===============================================================
 filter:
-  method: "keyword"                     # 筛选方式（二选一）
+  method: "ai"                     # 筛选方式（二选一）
                                        # keyword = 关键词匹配，不调用 AI，不消耗 token，但规则固定
                                        #           词组定义在 config/frequency_words.txt
                                        # ai = AI 智能分类，更灵活但每次运行消耗 token
@@ -233,12 +203,12 @@ display:
     - ai_analysis                       # 5️⃣ AI 分析区域
   regions:
     new_items: true # 新增热点区域：含热榜新增 + RSS 新增（true=显示, false=隐藏）
-    hotlist: true # 热榜区域：关键词匹配 / AI 智能筛选（true=显示, false=隐藏）
-    rss: true # RSS 订阅区域（true=显示并分析, false=隐藏并跳过分析）
-    standalone: true # 独立展示区：完整热榜/RSS，不受关键词过滤（true=显示, false=隐藏）
+    hotlist: false # 热榜区域：关键词匹配 / AI 智能筛选（true=显示, false=隐藏）
+    rss: false # RSS 订阅区域（true=显示并分析, false=隐藏并跳过分析）
+    standalone: false # 独立展示区：完整热榜/RSS，不受关键词过滤（true=显示, false=隐藏）
     ai_analysis: true # AI 分析区域（true=显示, false=隐藏）
   standalone:
-    platforms: ["zhihu","wallstreetcn-hot","cls-hot"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
+    platforms: ["zhihu","wallstreetcn-hot","cls-hot","thepaper"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
     rss_feeds: ["yahoo-finance","ruanyifeng","hacker-news"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 20                                # 每个源最多展示条数（0=不限制）
 
@@ -358,9 +328,9 @@ ai:
 
   model: "deepseek/deepseek-v4-flash"
 
-  api_key: "sk-51164ad9cc2f45ad9efc85215b796c82"                       # API Key（建议使用环境变量 AI_API_KEY）
+  api_key: ""                       # API Key（建议使用环境变量 AI_API_KEY）
   
-  api_base: "https://api.deepseek.com"                      # 自定义 API 地址（可选，绝大多数情况留空即可）
+  api_base: ""                      # 自定义 API 地址（可选，绝大多数情况留空即可）
                                     #
                                     # ❓ 什么时候需要填？
                                     #    当你使用的 AI 服务商不在上方支持列表中时。
@@ -381,12 +351,12 @@ ai:
                                     #    这样几乎任何服务商都能接入。
 
 
-  timeout: 120                      # 请求超时（秒）
+  timeout: 300                      # 请求超时（秒）
 
   temperature: 1.0                  # 采样温度 (0.0-2.0)
                                     # 注意：部分模型(如 gpt-5)可能要求必须为 1.0，否则会报错
   
-  max_tokens: 5000                  # 最大生成 token 数
+  max_tokens: 9999                  # 最大生成 token 数
                                     # 注意：如果 API 不支持此参数(报 HTTP 400)，请设为 0 以禁用发送
   # 高级选项
   num_retries: 1                    # 失败重试次数
@@ -417,7 +387,7 @@ ai_analysis:
   max_news_for_analysis: 150        # 参与分析的新闻数量上限（控制 token 成本的关键项）
                                     # 热榜优先占用配额，RSS 用剩余配额，独立展示区不受此限制
 
-  include_rss: false                # 是否包含 RSS 内容进行分析（true=包含, false=不包含）
+  include_rss: true                # 是否包含 RSS 内容进行分析（true=包含, false=不包含）
   include_standalone: true          # 是否纳入独立展示区数据（true=纳入, false=不纳入）
 
   include_rank_timeline: true       # 排名时间线详细程度
@@ -438,7 +408,7 @@ ai_translation:
   prompt_file: "ai_translation_prompt.txt"   # 提示词文件（相对于 config 目录）
 
   batch_size: 100                   # 每批发送给 AI 的标题数，超过此数量自动分批
-  batch_interval: 2                 # 分批间隔（秒），避免触发 API 限流，0=不等待
+  batch_interval: 10                 # 分批间隔（秒），避免触发 API 限流，0=不等待
 
   # 翻译范围（display.regions 关闭的区域即使开启也不会翻译）
   scope:
