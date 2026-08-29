@@ -72,8 +72,14 @@ platforms:
       name: "澎湃新闻"
     - id: "cls-hot"
       name: "财联社热门"
-    - id: "weibo"
-      name: "微博"
+    - id: "xueqiu"
+      name: "雪球"
+    - id: "jin10"
+      name: "金十数据"
+    - id: "cls-telegraph"
+      name: "财联社 电报"
+    - id: "fastbull"
+      name: "快讯通"
 
 
 
@@ -220,7 +226,7 @@ display:
   # 独立展示区：将指定平台/RSS 完整展示，不受关键词过滤
   # 推送展示由 regions.standalone 控制，AI 分析由 ai_analysis.include_standalone 控制
   standalone:
-    platforms: ["zhihu","wallstreetcn-hot","cls-hot","thepaper"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
+    platforms: ["zhihu","wallstreetcn-hot","cls-hot","thepaper","xueqiu","cls-telegraph","jin10","fastbull"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
     rss_feeds: ["hacker-news","ruanyifeng","yahoo-finance"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 20                                # 每个源最多展示条数（0=不限制）
 
