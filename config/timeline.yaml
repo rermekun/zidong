@@ -165,8 +165,8 @@ presets:
       7: "all_day"
 
 custom:
-  name: "工作日股票分析"
-  description: "周一到周五早8点/晚9点各推一次股票分析报告。"
+  name: "每日股票分析"
+  description: "每天早8点/晚9点各推一次股票分析报告。"
 
   default:
     collect: true
@@ -194,7 +194,7 @@ custom:
     evening_report:
       name: "晚间股票简报"
       start: "15:00"
-      end: "21:00"
+      end: "20:30"
       analyze: true
       ai_mode: "daily"
       push: true
@@ -206,8 +206,6 @@ custom:
   day_plans:
     workday:
       periods: ["morning_report", "evening_report"]
-    weekend:
-      periods: []
 
   week_map:
     1: "workday"
@@ -215,8 +213,8 @@ custom:
     3: "workday"
     4: "workday"
     5: "workday"
-    6: "weekend"
-    7: "weekend"
+    6: "workday"
+    7: "workday"
 
   overlap:
     policy: "error_on_overlap"
