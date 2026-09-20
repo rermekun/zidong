@@ -279,12 +279,6 @@
 ## 热榜新闻
 {news_content}
 
-## K线技术数据
-{kline_data}
-
-## 资金流向数据
-{fund_data}
-
 ## 独立展示区
 {standalone_content}
 
