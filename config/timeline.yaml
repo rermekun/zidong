@@ -9,7 +9,7 @@ presets:
     description: "全天候监控，有新增立即推送。"
     default:
       collect: true
-      analyze: false
+      analyze: true
       ai_mode: "current"
       push: true
       report_mode: "incremental"
