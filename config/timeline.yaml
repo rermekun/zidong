@@ -170,9 +170,9 @@ custom:
 
   default:
     collect: true
-    analyze: false
+    analyze: true
     ai_mode: "daily"
-    push: false
+    push: true
     report_mode: "daily"
     once:
       analyze: true
@@ -181,7 +181,7 @@ custom:
   periods:
     morning_report:
       name: "早间股票简报"
-      start: "08:00"
+      start: "04:00"
       end: "09:00"
       analyze: true
       ai_mode: "daily"
@@ -193,7 +193,7 @@ custom:
 
     evening_report:
       name: "晚间股票简报"
-      start: "20:00"
+      start: "15:00"
       end: "21:00"
       analyze: true
       ai_mode: "daily"
